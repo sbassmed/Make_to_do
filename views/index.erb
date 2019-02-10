@@ -1,0 +1,49 @@
+  <h2 class=" text-center text-info"> <i class="fas fa-list-ol"></i> Lista Tareas  </h2>
+  <br />
+  <div class="row text-center">
+    <div class="container border rounded">
+    <table class="table table-borderless table-hover centered">
+      <thead>
+        <tr>
+          <th scope="col">Identificador</th>
+          <th scope="col">Descripción</th>
+          <th scope="col">Estado</th>
+          <th scope="col">Proceso</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @tareas.each do |tarea| %>
+          <tr>
+            <td class="text-secondary"><%= tarea["id"] %></td>
+            <td class="text-info align-self-start"><%= tarea["title"] %></td>
+            <td>
+                <%if tarea['done']== false %>
+                  <p class="text-danger">Pendiente <i class="fas fa-tasks"></i> </p>
+                <% else %>
+                  <span class="text-success ">Realizada <i class="fas fa-check-double"></i> </span>
+                <% end %>
+            </td>
+            <td>
+              <% if tarea["done"] == false %>
+              <form action="/tarea/edit/<%= tarea["id"] %>" method="post">
+                <input type="submit" value="Realizar" class="btn btn-link">
+                <i action="/tarea/edit/<%= tarea["id"] %>" method="post" class="fas fa-clipboard-check"></i>
+              </form>
+              <% else %>
+              <span class="active text-muted">sin proceso </span>
+              <% end %>
+            </td>
+            <td>
+              <form action="/tarea/<%= tarea["id"] %>" method="post">
+                <input  method="post" type="submit" value="Eliminar" class="btn btn-link">
+                <i class="far fa-trash-alt"></i>
+              </form>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<br />
+<h4 class="text-center" ><a href="/tarea/nueva" class=" text-success">Nueva Tarea</a></h4>
